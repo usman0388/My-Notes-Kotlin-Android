@@ -1,6 +1,7 @@
 package com.example.mynotes
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.google.gson.Gson
 import java.io.Serializable
 import java.lang.Exception
 
@@ -54,7 +56,7 @@ class TextEdit : AppCompatActivity() {
             if(actFlag){
                 notesArray!![num!!]= notes!!
             }
-            Toast.makeText(this,notes!!._noteText+" and "+notes!!._noteTitle,Toast.LENGTH_LONG).show()
+            Toast.makeText(this,"Saved",Toast.LENGTH_LONG).show()
             flag = true
 
 
@@ -69,6 +71,7 @@ class TextEdit : AppCompatActivity() {
 
             setResult(RESULT_OK, resultIntent);
             finish()
+            SavePrevferences()
         }
         super.onBackPressed()
     }
@@ -78,5 +81,19 @@ class TextEdit : AppCompatActivity() {
         } else {
             View.GONE
         }
+    }
+    private fun SavePrevferences(){
+        try {
+            var sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE)
+            var editor: SharedPreferences.Editor = sharedPreferences.edit()
+            var gson = Gson()
+            var json: String? = gson.toJson(notesArray)
+
+            editor.putString("notes",json)
+            editor.apply()
+        }catch (e: Exception){
+            throw e
+        }
+
     }
 }
