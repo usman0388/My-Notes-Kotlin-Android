@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -32,6 +33,26 @@ class MainActivity : AppCompatActivity() {
             viewAdapter = RecylerviewAdapter(noteList,this)
             recylerview.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
             recylerview.adapter = viewAdapter
+
+            val itemtouchhelperCallback = object : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT){
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean {
+
+                    return false
+                }
+
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+//                    var check = direction
+//                    Toast.makeText(this@MainActivity,noteList[direction]!!._noteText,Toast.LENGTH_LONG).show()
+                    noteList.removeAt(viewHolder.adapterPosition)
+                    viewAdapter!!.notifyDataSetChanged()
+                }
+            }
+            val itemTouchHelper = ItemTouchHelper(itemtouchhelperCallback)
+            itemTouchHelper.attachToRecyclerView(recylerview)
         }catch (e: Exception){
             throw e
         }
