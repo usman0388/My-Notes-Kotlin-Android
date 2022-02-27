@@ -27,12 +27,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val floatingButtonAdd: View = findViewById(R.id.floatingActionButton)
+        val relativeLayout = findViewById<View>(R.id.delMenu)
         //Recyler view
         try {
             var recylerview = findViewById<RecyclerView>(R.id.recyclerView)
             viewAdapter = RecylerviewAdapter(noteList,this)
             recylerview.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
             recylerview.adapter = viewAdapter
+
 
             val itemtouchhelperCallback = object : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT){
                 override fun onMove(

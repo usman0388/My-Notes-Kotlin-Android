@@ -5,6 +5,8 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
@@ -21,12 +23,18 @@ class RecylerviewAdapter(private val dataSet: ArrayList<Note>, private val mcont
         var textViewTitle: TextView
         var textViewText: TextView
         var selectionCard: CardView
+
+        var radioButton: RadioButton
         init {
             // Define click listener for the ViewHolder's View.
             textViewTitle = view.findViewById(R.id.noteTitle)
             textViewText = view.findViewById(R.id.noteText)
             selectionCard = view.findViewById(R.id.cardView)
+
+            radioButton = view.findViewById(R.id.itemSlectionView)
         }
+
+
     }
 
     // Create new views (invoked by the layout manager)
@@ -43,6 +51,9 @@ class RecylerviewAdapter(private val dataSet: ArrayList<Note>, private val mcont
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
+        if(dataSet[position].isSelectable){
+            viewHolder.radioButton.setVisible(true)
+        }
         viewHolder.textViewTitle.text = dataSet[position]._noteTitle
         viewHolder.textViewText.text = dataSet[position]._noteText
         viewHolder.selectionCard.setOnClickListener(){
@@ -51,13 +62,33 @@ class RecylerviewAdapter(private val dataSet: ArrayList<Note>, private val mcont
             intet.putExtra("pos",position)
             mcontext.startActivity(intet)
 
-
-
+        }
+        viewHolder.selectionCard.setOnLongClickListener {
+            viewHolder.radioButton.isChecked = true
+            viewHolder.radioButton.setVisible(true)
+            setAllSelectable()
+            notifyDataSetChanged()
+            return@setOnLongClickListener true
         }
 
+    }
+    private fun View.setVisible(visible: Boolean) {
+        visibility = if (visible) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = dataSet.size
 
+
+    private fun setAllSelectable() {
+        for(i in dataSet){
+            i.isSelectable= true
+        }
+    }
 }
+
+

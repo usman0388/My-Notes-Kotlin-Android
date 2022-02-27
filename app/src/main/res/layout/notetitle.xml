@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -11,27 +12,40 @@
         app:cardElevation="20dp"
         android:layout_margin="15dp"
         app:cardCornerRadius="15dp">
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_margin="5dp">
+
             <TextView
                 android:id="@+id/noteTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Sample Text"
                 android:textStyle="bold"
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:layout_alignParentTop="true"/>
             <TextView
                 android:id="@+id/noteText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Data"
                 android:layout_marginTop="5dp"
-                android:maxLength="100"/>
+                android:maxLength="100"
+                android:layout_below="@+id/noteTitle"/>
+            <RadioButton
+                android:id="@+id/itemSlectionView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/noteText"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="5dp"
+                android:visibility="gone"/>
+        </RelativeLayout>
 
-        </LinearLayout>
+
 
     </androidx.cardview.widget.CardView>
+
 </LinearLayout>

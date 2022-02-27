@@ -48,9 +48,9 @@ class TextEdit : AppCompatActivity() {
         }
         saveButton.setOnClickListener(){
             notes = if(textTitleEdit.text.toString().isNotEmpty() && desc.text.toString().isNotEmpty()){
-                Note(textTitleEdit.text.toString(),desc.text.toString())
+                Note(textTitleEdit.text.toString(),desc.text.toString(),false)
             }else{
-                Note(textTitleView.text.toString(),desc.text.toString())
+                Note(textTitleView.text.toString(),desc.text.toString(),false)
 
             }
             if(actFlag){
