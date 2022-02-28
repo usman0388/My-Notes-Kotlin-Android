@@ -20,7 +20,14 @@
                 android:id="@+id/imageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toStartOf="@+id/checkBox"
+                app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
+                android:layout_toStartOf="@+id/checkBox"/>
+
+            <ImageButton
+                android:id="@+id/delButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/imageButton"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@android:drawable/ic_menu_delete"
                 tools:layout_editor_absoluteX="97dp" />
@@ -29,12 +36,12 @@
                 android:id="@+id/checkBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Select All"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:layout_editor_absoluteX="206dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="5dp"
-                />
+                android:checked="false"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="206dp"
+                android:onClick="onCheckboxClicked"/>
         </RelativeLayout>
 
 

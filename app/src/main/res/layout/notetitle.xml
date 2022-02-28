@@ -25,23 +25,27 @@
                 android:text="Sample Text"
                 android:textStyle="bold"
                 android:textSize="20dp"
-                android:layout_alignParentTop="true"/>
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="8dp"/>
             <TextView
                 android:id="@+id/noteText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Data"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:maxLength="100"
-                android:layout_below="@+id/noteTitle"/>
+                android:layout_below="@+id/noteTitle"
+                android:layout_marginBottom="5dp"/>
             <RadioButton
                 android:id="@+id/itemSlectionView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@id/noteText"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="5dp"
-                android:visibility="gone"/>
+                android:layout_marginTop="15dp"
+                android:visibility="visible"
+
+                />
         </RelativeLayout>
 
 

@@ -12,7 +12,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import org.w3c.dom.Text
 
-class RecylerviewAdapter(private val dataSet: ArrayList<Note>, private val mcontext: Context) :
+class RecylerviewAdapter(private val dataSet: ArrayList<Note>, private val mcontext: Context, private val relativeLayout: RelativeLayout) :
     RecyclerView.Adapter<RecylerviewAdapter.ViewHolder>() {
 
     /**
@@ -53,24 +53,39 @@ class RecylerviewAdapter(private val dataSet: ArrayList<Note>, private val mcont
         // contents of the view with that element
         if(dataSet[position].isSelectable){
             viewHolder.radioButton.setVisible(true)
-        }
-        viewHolder.textViewTitle.text = dataSet[position]._noteTitle
-        viewHolder.textViewText.text = dataSet[position]._noteText
-        viewHolder.selectionCard.setOnClickListener(){
-            var intet = Intent(mcontext,TextEdit::class.java)
-            intet.putExtra("note",dataSet)
-            intet.putExtra("pos",position)
-            mcontext.startActivity(intet)
+            viewHolder.selectionCard.setOnClickListener {
+                viewHolder.radioButton.isChecked = !viewHolder.radioButton.isChecked
+                dataSet[position].Selected = !dataSet[position].Selected
+                notifyDataSetChanged()
+                return@setOnClickListener
+            }
+        }else{
+            viewHolder.radioButton.setVisible(false)
+            viewHolder.radioButton.isChecked = false
+            setAllSelectable(false)
+            viewHolder.textViewTitle.text = dataSet[position]._noteTitle
+            viewHolder.textViewText.text = dataSet[position]._noteText
+            viewHolder.selectionCard.setOnClickListener(){
+                var intet = Intent(mcontext,TextEdit::class.java)
+                intet.putExtra("note",dataSet)
+                intet.putExtra("pos",position)
+                mcontext.startActivity(intet)
 
+            }
+            /*Long click listener on the card view which makes the radio button visible along with the multi selection view
+             (relative view) shown to the user. Also it checks the radio button true, and also sets the Selected in the dataset to
+             true according to the position
+            * */
+            viewHolder.selectionCard.setOnLongClickListener {
+                viewHolder.radioButton.isChecked = true
+                viewHolder.radioButton.setVisible(true)
+                setAllSelectable(true)
+                relativeLayout.visibility=View.VISIBLE
+                dataSet[position].Selected = true
+                notifyDataSetChanged()
+                return@setOnLongClickListener true
+            }
         }
-        viewHolder.selectionCard.setOnLongClickListener {
-            viewHolder.radioButton.isChecked = true
-            viewHolder.radioButton.setVisible(true)
-            setAllSelectable()
-            notifyDataSetChanged()
-            return@setOnLongClickListener true
-        }
-
     }
     private fun View.setVisible(visible: Boolean) {
         visibility = if (visible) {
@@ -83,10 +98,10 @@ class RecylerviewAdapter(private val dataSet: ArrayList<Note>, private val mcont
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = dataSet.size
 
-
-    private fun setAllSelectable() {
+    //Iterates through the entire list and sets the isSelectable true which enables the multi select feature on
+    private fun setAllSelectable(value: Boolean) {
         for(i in dataSet){
-            i.isSelectable= true
+            i.isSelectable= value
         }
     }
 }
