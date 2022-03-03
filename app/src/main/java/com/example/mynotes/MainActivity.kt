@@ -66,6 +66,7 @@ class MainActivity : AppCompatActivity() {
                 deleteSelectedItems()
                 SetSelectable(false)
                 relativeLayout.visibility= View.GONE
+                Toast.makeText(this,"Items Deleted",Toast.LENGTH_SHORT).show()
             }
             val itemTouchHelper = ItemTouchHelper(itemtouchhelperCallback)
             itemTouchHelper.attachToRecyclerView(recylerview)

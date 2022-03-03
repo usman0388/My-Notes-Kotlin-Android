@@ -53,6 +53,7 @@ class RecylerviewAdapter(private val dataSet: ArrayList<Note>, private val mcont
         // contents of the view with that element
         if(dataSet[position].isSelectable){
             viewHolder.radioButton.setVisible(true)
+            viewHolder.radioButton.isChecked = dataSet[position].Selected
             viewHolder.selectionCard.setOnClickListener {
                 viewHolder.radioButton.isChecked = !viewHolder.radioButton.isChecked
                 dataSet[position].Selected = !dataSet[position].Selected

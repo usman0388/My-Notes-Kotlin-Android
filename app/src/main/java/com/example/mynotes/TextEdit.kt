@@ -27,6 +27,7 @@ class TextEdit : AppCompatActivity() {
         val textTitleEdit = findViewById<EditText>(R.id.changeTitleEdit)
         val saveButton = findViewById<Button>(R.id.saveData)
         val desc = findViewById<EditText>(R.id.desc)
+        val shareButton = findViewById<Button>(R.id.Share)
 
         try {
             notesArray = intent.getSerializableExtra("note") as ArrayList<Note>
@@ -39,7 +40,6 @@ class TextEdit : AppCompatActivity() {
         }catch (e: Exception) {
             notes = null
         }
-
 
         textTitleView.setOnClickListener(){
 
@@ -60,6 +60,36 @@ class TextEdit : AppCompatActivity() {
             flag = true
 
 
+        }
+        //Share to other apps
+        shareButton.setOnClickListener {
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                // (Optional) Here we're setting the title of the content
+                putExtra(Intent.EXTRA_TITLE, "Share note")
+                try{
+                    if(actFlag){
+                        if (notesArray!![num!!]._noteTitle.isNotEmpty() && notesArray!![num!!]._noteText.isNotEmpty()){
+                            putExtra(Intent.EXTRA_TEXT,notesArray!![num!!]._noteTitle+"\n"+notesArray!![num!!]._noteText)
+                        }else{
+                            Toast.makeText(this@TextEdit,"Fill All the fields to continue", Toast.LENGTH_SHORT).show()
+                        }
+                    }else{
+                        if(notes!= null){
+                            putExtra(Intent.EXTRA_TEXT,notes!!._noteTitle+"\n"+notes!!._noteText)
+                        }else{
+                            Toast.makeText(this@TextEdit,"Fill All the fields to continue", Toast.LENGTH_SHORT).show()
+
+                        }
+                    }
+                }catch (e: Exception){
+                    print(e.toString())
+                }
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
         }
     }
 

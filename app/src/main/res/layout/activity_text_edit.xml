@@ -7,6 +7,9 @@
     tools:context=".TextEdit"
     >
 
+
+
+
     <LinearLayout
         android:id="@+id/textEditLayout"
         android:layout_width="match_parent"
@@ -46,7 +49,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_below="@+id/textEditLayout"
-        android:layout_above="@+id/saveData"
+        android:layout_above="@+id/saveShareBtn"
         >
 
         <EditText
@@ -60,17 +63,30 @@
 
     </androidx.cardview.widget.CardView>
 
-    <Button
-        android:id="@+id/saveData"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/saveShareBtn"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_margin="10dp"
-        android:layout_marginBottom="5dp"
-        android:text="Save" />
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/saveData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Save"
+            />
 
 
+        <Button
+            android:id="@+id/Share"
+            android:layout_width="66dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_margin="10dp"
+            app:icon="@android:drawable/ic_menu_share" />
 
+    </LinearLayout>
 </RelativeLayout>
